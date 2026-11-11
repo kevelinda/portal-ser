@@ -1,0 +1,142 @@
+:root {
+  --vinho: #9b0000;
+  --vinho-escuro: #7a0000;
+  --cinza-cartao: #d4d4d4;
+  --azul-logo: #0b1244;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body.pagina-login {
+  min-height: 100vh;
+  background: #fff;
+  font-family: "Inter", Arial, sans-serif;
+  color: var(--vinho-escuro);
+}
+
+/* ---------- Faixa do topo ---------- */
+.topo {
+  display: flex;
+  align-items: center;
+  height: 10vh;
+  min-height: 56px;
+  padding: 0 4vw;
+  background: var(--vinho);
+}
+
+.topo-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+  color: #fff;
+  text-decoration: none;
+}
+
+.topo-portal { font-size: 0.7rem; padding-right: 0.2em; }
+
+.topo-ser {
+  font-family: "Archivo Black", Impact, sans-serif;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- Conteúdo ---------- */
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8vh 6vw 6vh;
+}
+
+.login h1 {
+  font-family: "Archivo", Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  color: var(--vinho);
+  margin-bottom: 5vh;
+}
+
+.cartao {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 420px);
+  padding: 32px 28px;
+  background: var(--cinza-cartao);
+  border-radius: 14px;
+}
+
+.cartao label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.cartao input {
+  height: 40px;
+  margin-bottom: 18px;
+  padding: 0 12px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  color: #222;
+}
+
+.cartao input:focus {
+  outline: none;
+  border-color: var(--vinho);
+}
+
+.erro {
+  margin-bottom: 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--vinho);
+}
+
+.sucesso {
+  margin-bottom: 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1d6b2f;
+}
+
+.entrar {
+  align-self: center;
+  min-width: 150px;
+  height: 42px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--azul-logo);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.entrar:hover { background: #1b2670; }
+
+.entrar:focus-visible,
+.topo-logo:focus-visible {
+  outline: 3px solid var(--vinho);
+  outline-offset: 3px;
+}
+
+/* ---------- Link entre login e cadastro ---------- */
+.troca {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.troca a {
+  color: var(--vinho);
+  font-weight: 700;
+}
+
+.troca a:focus-visible {
+  outline: 3px solid var(--vinho);
+  outline-offset: 2px;
+}

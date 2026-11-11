@@ -1,0 +1,183 @@
+:root {
+  --vinho: #9b0000;
+  --vinho-escuro: #7a0000;
+  --rosa: #dfc0c0;
+  --cinza: #eeeeee;
+  --azul-logo: #0b1244;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #fff;
+  font-family: "Inter", Arial, sans-serif;
+  color: var(--vinho-escuro);
+}
+
+.faixa {
+  position: absolute;
+  top: 1vh;
+  left: 0;
+  width: 47vw;
+  height: 12vh;
+  background: var(--vinho);
+  border-radius: 0 7vh 7vh 0;
+  z-index: 3;
+}
+
+.forma { position: absolute; border-radius: 50%; }
+
+.forma-cinza {
+  width: 130vh;
+  height: 130vh;
+  top: 6vh;
+  left: calc(58vw - 130vh);
+  background: var(--cinza);
+  z-index: 1;
+}
+
+.forma-rosa {
+  width: 125vh;
+  height: 125vh;
+  top: 12vh;
+  left: calc(50vw - 125vh);
+  background: var(--rosa);
+  z-index: 2;
+}
+
+.home {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.mensagem {
+  flex: 0 0 50%;
+  padding-left: 6vw;
+  padding-right: 4vw;
+}
+
+.mensagem h1 {
+  font-size: clamp(1.1rem, 1.9vw, 1.7rem);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.7em;
+}
+
+.mensagem p {
+  font-size: clamp(0.9rem, 1.45vw, 1.25rem);
+  line-height: 1.4;
+}
+
+.acesso {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 4vw;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+}
+
+.logo-portal {
+  font-size: clamp(0.8rem, 1.2vw, 1.1rem);
+  color: var(--azul-logo);
+  margin-bottom: -0.1em;
+  padding-right: 0.2em;
+}
+
+.logo-ser {
+  font-family: "Archivo Black", Impact, sans-serif;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  color: var(--azul-logo);
+  letter-spacing: -0.02em;
+}
+
+.acesso h2 {
+  font-family: "Archivo", Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  color: var(--vinho);
+  margin-top: 0.1em;
+  letter-spacing: -0.01em;
+}
+
+.instrucao {
+  font-family: "Archivo", Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(0.5rem, 0.7vw, 0.65rem);
+  color: var(--vinho);
+  margin-bottom: 3.5vh;
+}
+
+.botoes {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5vh;
+  width: min(100%, 24vw);
+  min-width: 180px;
+}
+
+.botao {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: clamp(44px, 9vh, 70px);
+  padding-left: 1.2em;
+  background: var(--vinho);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 14px;
+  transition: background 0.2s ease;
+}
+
+.botao small {
+  font-size: 0.55rem;
+  line-height: 1;
+}
+
+.botao span {
+  font-weight: 700;
+  font-size: clamp(0.7rem, 0.95vw, 0.9rem);
+  padding-left: 0.6em;
+}
+
+.botao:hover { background: var(--vinho-escuro); }
+
+.botao:focus-visible {
+  outline: 3px solid var(--azul-logo);
+  outline-offset: 3px;
+}
+
+@media (max-width: 800px) {
+  body { overflow: auto; }
+
+  .home {
+    flex-direction: column;
+    justify-content: center;
+    gap: 6vh;
+    padding: 18vh 0 6vh;
+  }
+
+  .mensagem { flex: none; padding: 0 8vw; text-align: center; }
+  .mensagem h1 br, .mensagem p br { display: none; }
+
+  .forma-rosa { width: 150vw; height: 150vw; top: 8vh; left: -25vw; }
+  .forma-cinza { width: 165vw; height: 165vw; top: 4vh; left: -20vw; }
+  .faixa { width: 80vw; }
+
+  .botoes { width: min(80vw, 320px); }
+}

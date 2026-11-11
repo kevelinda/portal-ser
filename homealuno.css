@@ -1,0 +1,159 @@
+:root {
+  --vinho: #9b0000;
+  --vinho-escuro: #7a0000;
+  --rosa: #dfc0c0;
+  --azul-logo: #0b1244;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  background: #fff;
+  font-family: "Inter", Arial, sans-serif;
+  color: var(--vinho-escuro);
+}
+
+/* ---------- Topo ---------- */
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 10vh;
+  min-height: 56px;
+  padding: 0 4vw;
+  background: var(--vinho);
+}
+
+.topo-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+  color: #fff;
+  text-decoration: none;
+}
+
+.topo-portal { font-size: 0.7rem; padding-right: 0.2em; }
+
+.topo-ser {
+  font-family: "Archivo Black", Impact, sans-serif;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+}
+
+.menu a {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+}
+
+.menu a:hover,
+.menu a.ativo { border-bottom-color: #fff; }
+
+.menu a.sair {
+  padding: 6px 14px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+}
+
+.menu a.sair:hover { background: #fff; color: var(--vinho); }
+
+.menu a:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+/* ---------- Conteúdo ---------- */
+.inicio {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6vh;
+  min-height: 90vh;
+  padding: 6vh 6vw;
+}
+
+.circulo {
+  position: absolute;
+  top: -20vh;
+  left: -25vh;
+  width: 90vh;
+  height: 90vh;
+  border-radius: 50%;
+  background: var(--rosa);
+  z-index: 0;
+}
+
+.boas-vindas,
+.cartoes { position: relative; z-index: 1; }
+
+.boas-vindas h1 {
+  font-size: clamp(1.3rem, 2.6vw, 2.3rem);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.6em;
+}
+
+.boas-vindas p {
+  font-size: clamp(0.95rem, 1.5vw, 1.3rem);
+  line-height: 1.4;
+}
+
+.cartoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.cartao-acao {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: min(100%, 280px);
+  height: 80px;
+  padding-left: 1.4em;
+  background: var(--vinho);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 14px;
+  transition: background 0.2s ease;
+}
+
+.cartao-acao small { font-size: 0.65rem; line-height: 1; }
+
+.cartao-acao span {
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding-left: 0.5em;
+}
+
+.cartao-acao:hover { background: var(--vinho-escuro); }
+
+.cartao-acao:focus-visible {
+  outline: 3px solid var(--azul-logo);
+  outline-offset: 3px;
+}
+
+/* ---------- Celular ---------- */
+@media (max-width: 700px) {
+  .topo { flex-direction: column; justify-content: center; height: auto; padding: 12px 4vw; }
+  .menu { justify-content: center; gap: 8px 16px; }
+  .boas-vindas { text-align: center; }
+  .boas-vindas h1 br { display: none; }
+  .cartoes { justify-content: center; }
+}

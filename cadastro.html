@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cadastro | Portal SER</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="aluno.css">
+</head>
+<body class="pagina-login">
+  <header class="topo">
+    <a class="topo-logo" href="index.html" aria-label="Voltar para o início">
+      <span class="topo-portal">Portal</span>
+      <span class="topo-ser">SER</span>
+    </a>
+  </header>
+
+  <main class="login">
+    <h1>Crie sua conta</h1>
+
+    <form class="cartao" id="form-cadastro" novalidate>
+      <label for="nome">Nome completo</label>
+      <input type="text" id="nome" name="nome" autocomplete="name" required>
+
+      <label for="matricula">Matrícula</label>
+      <input type="text" id="matricula" name="matricula" autocomplete="username" required>
+
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" autocomplete="email" required>
+
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" name="senha" autocomplete="new-password" minlength="6" required>
+
+      <label for="confirmar">Confirmar senha</label>
+      <input type="password" id="confirmar" name="confirmar" autocomplete="new-password" required>
+
+      <p class="erro" id="erro" role="alert" hidden></p>
+
+      <button type="submit" class="entrar">Cadastrar</button>
+      <p class="troca">Já tem conta? <a href="loginaluno.html">Entrar</a></p>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById('form-cadastro');
+    const erro = document.getElementById('erro');
+
+    function mostrarErro(msg) {
+      erro.textContent = msg;
+      erro.hidden = false;
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const { nome, matricula, email, senha, confirmar } = form;
+
+      if (!nome.value.trim() || !matricula.value.trim() || !email.value.trim() || !senha.value) {
+        return mostrarErro('Preencha todos os campos.');
+      }
+      if (!email.checkValidity()) {
+        return mostrarErro('Digite um e-mail válido.');
+      }
+      if (senha.value.length < 6) {
+        return mostrarErro('A senha precisa ter pelo menos 6 caracteres.');
+      }
+      if (senha.value !== confirmar.value) {
+        return mostrarErro('As senhas não são iguais.');
+      }
+      erro.hidden = true;
+
+      // TODO: antes de redirecionar, enviar os dados ao seu backend (fetch/POST).
+      // Por enquanto, depois de validar, leva para a tela de login:
+            window.location.href = 'homealuno.html';
+
+    });
+  </script>
+</body>
+</html>

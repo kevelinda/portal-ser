@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login do aluno | Portal SER</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="aluno.css">
+</head>
+<body class="pagina-login">
+  <header class="topo">
+    <a class="topo-logo" href="index.html" aria-label="Voltar para o início">
+      <span class="topo-portal">Portal</span>
+      <span class="topo-ser">SER</span>
+    </a>
+  </header>
+
+  <main class="login">
+    <h1>Olá Aluno(a)!</h1>
+
+    <form class="cartao" id="form-login" novalidate>
+      <label for="matricula">Matrícula</label>
+      <input type="text" id="matricula" name="matricula" autocomplete="username" required>
+
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" name="senha" autocomplete="current-password" required>
+
+      <p class="sucesso" id="sucesso" role="status" hidden>Cadastro feito! Entre com sua matrícula e senha.</p>
+      <p class="erro" id="erro" role="alert" hidden></p>
+
+      <button type="submit" class="entrar">Entrar</button>
+      <p class="troca">Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById('form-login');
+    const erro = document.getElementById('erro');
+
+    // Chegou do cadastro: mostra a mensagem de sucesso
+    if (new URLSearchParams(window.location.search).get('cadastro') === 'ok') {
+      document.getElementById('sucesso').hidden = false;
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const matricula = form.matricula.value.trim();
+      const senha = form.senha.value;
+
+      if (!matricula || !senha) {
+        erro.textContent = 'Preencha a matrícula e a senha.';
+        erro.hidden = false;
+        return;
+      }
+      erro.hidden = true;
+
+            // TODO: validar matrícula e senha no backend antes de entrar.
+      window.location.href = 'homealuno.html';
+    });
+  </script>
+</body>
+</html>

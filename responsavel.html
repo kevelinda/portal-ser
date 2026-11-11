@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login do responsável | Portal SER</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="aluno.css">
+</head>
+<body class="pagina-login">
+  <header class="topo">
+    <a class="topo-logo" href="index.html" aria-label="Voltar para o início">
+      <span class="topo-portal">Portal</span>
+      <span class="topo-ser">SER</span>
+    </a>
+  </header>
+
+  <main class="login">
+    <h1>Olá Responsável!</h1>
+
+    <form class="cartao" id="form-login" novalidate>
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" autocomplete="username" required>
+
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" name="senha" autocomplete="current-password" required>
+
+      <p class="erro" id="erro" role="alert" hidden></p>
+
+      <button type="submit" class="entrar">Entrar</button>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById('form-login');
+    const erro = document.getElementById('erro');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      if (!form.email.value.trim() || !form.senha.value) {
+        erro.textContent = 'Preencha o e-mail e a senha.';
+        erro.hidden = false;
+        return;
+      }
+      if (!form.email.checkValidity()) {
+        erro.textContent = 'Digite um e-mail válido.';
+        erro.hidden = false;
+        return;
+      }
+      erro.hidden = true;
+
+      // TODO: validar e-mail e senha no backend antes de entrar.
+      window.location.href = 'homeresponsa.html';
+    });
+  </script>
+</body>
+</html>
