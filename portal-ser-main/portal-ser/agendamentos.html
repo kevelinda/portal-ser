@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal SER – Meus Agendamentos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <style>
+    :root {
+      --vinho: #9b0000;
+      --vermelho: #e0161c;
+      --rosa: #f8d3d3;
+      --cinza: #d9d9d9;
+      --borda: #f3dcd2;
+      --texto: #1a1a1a;
+      --verde-tag: #1f8b3d;
+      --verde-fundo: #e4f5e9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #fff;
+      font-family: "Archivo", Arial, sans-serif;
+      color: var(--texto);
+    }
+
+    .pagina {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.8rem 4vw 3rem;
+    }
+
+    .titulo-pagina {
+      font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+      font-weight: 700;
+      color: var(--vinho);
+      margin-bottom: 1.2rem;
+    }
+
+    .barra {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .abas {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .aba {
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      border: 1px solid var(--borda);
+      background: #fff;
+      color: var(--vinho);
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .aba:hover {
+      background: var(--rosa);
+      border-color: var(--rosa);
+    }
+
+    .aba.on {
+      background: var(--vinho);
+      color: #fff;
+      border-color: var(--vinho);
+    }
+
+    .btn-novo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      width: auto;
+      padding: 0.5rem 1.05rem;
+      border-radius: 6px;
+      background: var(--vermelho);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.18s ease;
+    }
+
+    .btn-novo:hover {
+      background: var(--vinho);
+    }
+
+    #lista {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #lista > li:not(.vazio) {
+      display: grid;
+      grid-template-columns: 84px minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 18px;
+      padding: 1rem 1.4rem;
+      background: #fff;
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .data {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-right: 14px;
+      border-right: 1px solid var(--borda);
+      text-align: center;
+    }
+
+    .data b {
+      font-size: 1.45rem;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--vinho);
+    }
+
+    .data span {
+      font-size: 0.72rem;
+      color: #555;
+      margin-top: 2px;
+    }
+
+    .info {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .info strong {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--vinho);
+    }
+
+    .info small {
+      font-size: 0.78rem;
+      color: #444;
+      text-transform: capitalize;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0.22rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .tag.prox {
+      background: var(--rosa);
+      color: var(--vinho);
+    }
+
+    .tag.conc {
+      background: var(--verde-fundo);
+      color: var(--verde-tag);
+    }
+
+    .cancelar {
+      padding: 0.42rem 0.85rem;
+      border-radius: 6px;
+      border: 1px solid var(--vermelho);
+      background: #fff;
+      color: var(--vermelho);
+      font-family: inherit;
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    .cancelar:hover {
+      background: var(--rosa);
+    }
+
+    .vazio {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #fff;
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      color: #666;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 700px) {
+      .barra {
+        align-items: stretch;
+      }
+
+      .btn-novo {
+        width: 100%;
+      }
+
+      #lista > li:not(.vazio) {
+        grid-template-columns: 68px minmax(0, 1fr);
+        gap: 10px 14px;
+        padding: 1rem;
+      }
+
+      .tag {
+        justify-self: start;
+      }
+
+      .cancelar {
+        justify-self: end;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <a class="navbar-logo" href="homealuno.html" aria-label="Portal SER - Início">
+      <span class="navbar-portal">Portal</span>
+      <span class="navbar-ser">SER</span>
+    </a>
+    <nav aria-label="Menu principal">
+      <ul class="navbar-menu">
+        <li><a class="navbar-link" href="homealuno.html">Início</a></li>
+        <li><a class="navbar-link" href="aluno-agendamentos.html">Agendar</a></li>
+        <li><a class="navbar-link ativo" href="agendamentos.html" aria-current="page">Agendamentos</a></li>
+        <li><a class="navbar-sair" id="btn-sair" href="index.html">Sair</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="pagina">
+    <h1 class="titulo-pagina">Meus Agendamentos</h1>
+
+    <section class="barra">
+      <div class="abas" role="tablist" aria-label="Filtrar agendamentos">
+        <button type="button" class="aba on" data-f="todos">Todos</button>
+        <button type="button" class="aba" data-f="prox">Próximos</button>
+        <button type="button" class="aba" data-f="conc">Concluídos</button>
+      </div>
+      <a class="btn-novo" href="aluno-agendamentos.html">Novo agendamento</a>
+    </section>
+
+    <ul id="lista">
+      <li class="vazio">Carregando agendamentos...</li>
+    </ul>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape-conteudo">
+      <span class="rodape-titulo">Portal SER</span>
+      <p class="rodape-autores">Desenvolvido por: Nicolly Freitas, Kevellin Vitoria, Maria Heloisa, Davi Eduardo, Gabriel Carvalho</p>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { db } from "./config/firebase.js";
+    import { ref, onValue, remove } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+
+    const aluno = JSON.parse(localStorage.getItem("alunoLogado")) || {};
+    const listaEl = document.getElementById("lista");
+    const btnSair = document.getElementById("btn-sair");
+
+    let listaCompleta = [];
+    let filtroAtual = "todos";
+
+    btnSair.addEventListener("click", () => {
+      localStorage.removeItem("alunoLogado");
+    });
+
+    function converterDataHora(agendamento) {
+      let ano, mes, dia;
+      if (agendamento.dataISO) {
+        [ano, mes, dia] = agendamento.dataISO.split("-");
+      } else if (agendamento.data && agendamento.data.includes("/")) {
+        [dia, mes, ano] = agendamento.data.split("/");
+      } else {
+        return new Date();
+      }
+      const [hora, minuto] = (agendamento.horario || "00:00").split(":");
+      return new Date(Number(ano), Number(mes) - 1, Number(dia), Number(hora), Number(minuto));
+    }
+
+    function renderizarLista() {
+      const agora = new Date();
+      const itensFiltrados = listaCompleta
+        .map((ag) => {
+          const dataObj = converterDataHora(ag);
+          const concluido = dataObj < agora || ag.status === "Concluído";
+          return { ...ag, dataObj, concluido };
+        })
+        .filter((ag) => filtroAtual === "todos" || (filtroAtual === "conc") === ag.concluido)
+        .sort((a, b) => (filtroAtual === "conc" ? b.dataObj - a.dataObj : a.dataObj - b.dataObj));
+
+      if (!itensFiltrados.length) {
+        listaEl.innerHTML = `<li class="vazio">Nenhum agendamento por aqui. Use "Novo agendamento" para marcar um horário.</li>`;
+        return;
+      }
+
+      listaEl.innerHTML = "";
+      itensFiltrados.forEach((ag) => {
+        const li = document.createElement("li");
+        const diaFormatado = String(ag.dataObj.getDate()).padStart(2, "0");
+        const mesAbreviado = ag.dataObj.toLocaleDateString("pt-BR", { month: "short" }).replace(".", "");
+        const diaSemana = ag.dataObj.toLocaleDateString("pt-BR", { weekday: "long" });
+        const statusTexto = ag.concluido ? "Concluído" : (ag.status || "Agendado");
+        const classeTag = ag.concluido ? "conc" : "prox";
+
+        li.innerHTML = `
+          <div class="data">
+            <b>${diaFormatado}</b>
+            <span>${mesAbreviado}/${ag.dataObj.getFullYear()}</span>
+          </div>
+          <div class="info">
+            <strong>${(ag.horario || "--:--").replace(":", "h")}</strong>
+            <small>${diaSemana}</small>
+          </div>
+          <span class="tag ${classeTag}">${statusTexto}</span>
+          ${ag.concluido ? "" : `<button type="button" class="cancelar" data-id="${ag.id}">Cancelar</button>`}
+        `;
+        listaEl.appendChild(li);
+      });
+    }
+
+    onValue(ref(db, "agendamentos"), (snapshot) => {
+      listaCompleta = [];
+      if (snapshot.exists()) {
+        snapshot.forEach((child) => {
+          const dados = child.val();
+          if (!aluno.cpf || dados.cpfAluno === aluno.cpf) {
+            listaCompleta.push({ id: child.key, ...dados });
+          }
+        });
+      }
+      renderizarLista();
+    });
+
+    document.querySelectorAll(".aba").forEach((botao) => {
+      botao.addEventListener("click", () => {
+        filtroAtual = botao.dataset.f;
+        document.querySelectorAll(".aba").forEach((item) => item.classList.toggle("on", item === botao));
+        renderizarLista();
+      });
+    });
+
+    listaEl.addEventListener("click", async (evento) => {
+      const botaoCancelar = evento.target.closest(".cancelar");
+      if (!botaoCancelar) return;
+
+      const idAgendamento = botaoCancelar.dataset.id;
+      if (!idAgendamento) return;
+
+      if (confirm("Deseja cancelar este agendamento?")) {
+        try {
+          await remove(ref(db, `agendamentos/${idAgendamento}`));
+        } catch (erro) {
+          console.error("Erro ao cancelar agendamento:", erro);
+          alert("Não foi possível cancelar o agendamento.");
+        }
+      }
+    });
+  </script>
+</body>
+</html>

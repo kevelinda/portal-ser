@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal SER - Estudantes Cadastrados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/listar-al.css">
+  <link rel="stylesheet" href="css/footer.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-usuario" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
+    <symbol id="i-voltar" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+  </svg>
+
+  <header class="navbar">
+    <a class="navbar-logo" href="homeresponsa.html" aria-label="Portal SER - Início">
+      <span class="navbar-portal">Portal</span>
+      <span class="navbar-ser">SER</span>
+    </a>
+    <nav aria-label="Menu principal">
+      <ul class="navbar-menu">
+        <li><a class="navbar-link" href="homeresponsa.html">Início</a></li>
+        <li><a class="navbar-link" href="remarcaresponsavel.html?modo=gerenciar">Gerenciar Horários</a></li>
+        <li><a class="navbar-link ativo" href="listar-al.html" aria-current="page">Estudantes</a></li>
+        <li><a class="navbar-sair" id="btn-sair" href="index.html">Sair</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="pagina">
+    <a href="homeresponsa.html" class="btn-voltar">
+      <svg class="icone-voltar"><use href="#i-voltar"/></svg> Voltar ao Início
+    </a>
+
+    <div class="cabecalho-pagina">
+      <h1>Estudantes Cadastrados</h1>
+    </div>
+
+    <div class="filtro-container">
+      <label for="filtro-curso">Filtrar por curso:</label>
+      <select id="filtro-curso" class="select-filtro">
+        <option value="todos">Todos os cursos</option>
+        <option value="informatica">Informática para Internet</option>
+        <option value="administracao">Administração</option>
+        <option value="rh">Recursos Humanos</option>
+        <option value="meio-ambiente">Meio Ambiente</option>
+        <option value="marketing">Marketing</option>
+        <option value="design-de-interiores">Design de Interiores</option>
+      </select>
+
+      <label for="filtro-periodo">Período:</label>
+      <select id="filtro-periodo" class="select-filtro">
+        <option value="todos">Todos os períodos</option>
+        <option value="manha">Manhã</option>
+        <option value="tarde">Tarde</option>
+        <option value="noite">Noite</option>
+      </select>
+    </div>
+
+    <div class="tabela-container">
+      <table class="tabela-alunos">
+        <thead>
+          <tr>
+            <th>Curso</th>
+            <th>Série</th>
+            <th>Período</th>
+            <th>Nome do Aluno</th>
+            <th>CPF</th>
+          </tr>
+        </thead>
+        <tbody id="corpo-tabela">
+          <tr>
+            <td colspan="5" class="carregando">Carregando estudantes...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape-conteudo">
+      <span class="rodape-titulo">Portal SER</span>
+      <p class="rodape-autores">Desenvolvido por: Nicolly Freitas, Kevellin Vitoria, Maria Heloisa, Davi Eduardo, Gabriel Carvalho</p>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { db } from "./config/firebase.js";
+    import { ref, get } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+
+    const cursosNomes = {
+      informatica: "Informática para Internet",
+      administracao: "Administração",
+      rh: "Recursos Humanos",
+      "meio-ambiente": "Meio Ambiente",
+      marketing: "Marketing",
+      "design-de-interiores": "Design de Interiores"
+    };
+
+    const periodosNomes = {
+      manha: "Manhã",
+      tarde: "Tarde",
+      noite: "Noite"
+    };
+
+    let todosAlunos = [];
+
+    document.getElementById("btn-sair").addEventListener("click", () => {
+      localStorage.removeItem("responsavelLogado");
+    });
+
+    async function carregarAlunos() {
+      const tbody = document.getElementById("corpo-tabela");
+      try {
+        const snap = await get(ref(db, "alunos"));
+        if (!snap.exists()) {
+          tbody.innerHTML = `<tr><td colspan="5" class="vazio">Nenhum aluno cadastrado no momento.</td></tr>`;
+          return;
+        }
+
+        todosAlunos = [];
+        snap.forEach((child) => {
+          todosAlunos.push(child.val());
+        });
+
+        aplicarFiltros();
+      } catch (err) {
+        console.error("Erro ao buscar alunos:", err);
+        tbody.innerHTML = `<tr><td colspan="5" class="vazio" style="color:var(--vermelho);">Erro ao carregar a lista de alunos.</td></tr>`;
+      }
+    }
+
+    function renderizarTabela(lista) {
+      const tbody = document.getElementById("corpo-tabela");
+      if (lista.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="vazio">Nenhum aluno encontrado para este filtro.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = "";
+      lista.forEach((aluno) => {
+        const nomeCurso = cursosNomes[aluno.curso] || aluno.curso || "Não informado";
+        const serie = aluno.ano ? `${aluno.ano}º Ano` : "Não informada";
+        const periodo = periodosNomes[aluno.periodo] || aluno.periodo || "Não informado";
+        const nome = aluno.nome || "Não informado";
+        const cpf = aluno.cpf || "Não informado";
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><strong>${nomeCurso}</strong></td>
+          <td>${serie}</td>
+          <td>${periodo}</td>
+          <td>${nome}</td>
+          <td>${cpf}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function aplicarFiltros() {
+      const cursoSelecionado = document.getElementById("filtro-curso").value;
+      const periodoSelecionado = document.getElementById("filtro-periodo").value;
+
+      const filtrados = todosAlunos.filter((a) => {
+        const bateCurso = cursoSelecionado === "todos" || a.curso === cursoSelecionado;
+        const batePeriodo = periodoSelecionado === "todos" || a.periodo === periodoSelecionado;
+        return bateCurso && batePeriodo;
+      });
+
+      renderizarTabela(filtrados);
+    }
+
+    document.getElementById("filtro-curso").addEventListener("change", aplicarFiltros);
+    document.getElementById("filtro-periodo").addEventListener("change", aplicarFiltros);
+
+    carregarAlunos();
+  </script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal SER - Estudante</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/homealuno.css">
+  <link rel="stylesheet" href="css/footer.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-calendario" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="16" rx="2"/>
+      <path d="M3 10h18M8 3v4M16 3v4"/>
+    </symbol>
+    <symbol id="i-agenda" viewBox="0 0 64 64">
+      <rect x="4" y="8" width="46" height="44" rx="6"/>
+      <path d="M4 22h46M16 4v8M38 4v8"/>
+      <circle cx="46" cy="46" r="13" fill="#fff"/>
+      <path d="M46 38v8l5 3"/>
+    </symbol>
+  </svg>
+
+  <header class="navbar">
+    <a class="navbar-logo" href="homealuno.html" aria-label="Portal SER - Início">
+      <span class="navbar-portal">Portal</span>
+      <span class="navbar-ser">SER</span>
+    </a>
+    <nav aria-label="Menu principal">
+      <ul class="navbar-menu">
+        <li><a class="navbar-link ativo" href="homealuno.html" aria-current="page">Início</a></li>
+        <li><a class="navbar-link" href="aluno-agendamentos.html">Agendar</a></li>
+        <li><a class="navbar-link" href="agendamentos.html">Agendamentos</a></li>
+        <li><a class="navbar-sair" id="btn-sair" href="index.html">Sair</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="pagina">
+    <section class="hero">
+      <div class="hero-texto">
+        <span class="hero-etiqueta" id="boas-vindas">BEM-VINDO(A) ESTUDANTE AO SER</span>
+        <h1>Seu bem-estar também faz parte da sua jornada.</h1>
+        <p class="hero-descricao">
+          Um espaço seguro para cuidar das suas emoções, encontrar apoio e ter
+          um acompanhamento durante a sua vida escolar.
+        </p>
+      </div>
+      <div class="hero-imagem">
+        <img
+          src="./img/profaluno.png"
+          alt="Ilustração de uma mentora conversando de forma acolhedora com um estudante"
+          onerror="this.style.display='none'; document.getElementById('hero-fallback').style.display='flex';"
+        >
+        <div id="hero-fallback" class="hero-fallback" style="display:none;" aria-hidden="true">
+          <span>Acolhimento & Escuta</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="atalho-card">
+      <svg class="atalho-icone">
+        <use href="#i-calendario"/>
+      </svg>
+      <div class="atalho-info">
+        <h3>Agendar Horário</h3>
+        <p>Confira os dias e horários disponíveis e marque um novo atendimento.</p>
+      </div>
+      <div class="atalho-acoes">
+        <a class="btn btn-cheio" href="aluno-agendamentos.html">
+          <svg class="icone"><use href="#i-calendario"/></svg> Agendar
+        </a>
+      </div>
+    </section>
+
+    <section class="atalho-card">
+      <svg class="atalho-icone">
+        <use href="#i-agenda"/>
+      </svg>
+      <div class="atalho-info">
+        <h3>Meus Agendamentos</h3>
+        <p>Veja seus agendamentos futuros e o histórico de atendimentos.</p>
+      </div>
+      <div class="atalho-acoes">
+        <a class="btn btn-contorno" href="agendamentos.html">
+          <svg class="icone"><use href="#i-agenda"/></svg> Ver Agenda
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape-conteudo">
+      <span class="rodape-titulo">Portal SER</span>
+      <p class="rodape-autores">Desenvolvido por: Nicolly Freitas, Kevellin Vitoria, Maria Heloisa, Davi Eduardo, Gabriel Carvalho</p>
+    </div>
+  </footer>
+
+  <script>
+    const aluno = JSON.parse(localStorage.getItem("alunoLogado"));
+    if (aluno && aluno.nome) {
+      const primeiroNome = aluno.nome.split(" ")[0].toUpperCase();
+      document.getElementById("boas-vindas").textContent = `BEM-VINDO(A), ${primeiroNome}, AO SER`;
+    }
+
+    document.getElementById("btn-sair").addEventListener("click", () => {
+      localStorage.removeItem("alunoLogado");
+    });
+  </script>
+</body>
+</html>

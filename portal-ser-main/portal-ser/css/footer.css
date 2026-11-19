@@ -1,0 +1,53 @@
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.rodape {
+  margin-top: auto;
+  padding: 1.2rem 4vw;
+  background: #1c1c1c;
+  color: #f3f3f3;
+  border-top: 3px solid var(--vinho, #9b0000);
+  font-family: "Archivo", Arial, sans-serif;
+  text-align: center;
+  width: 100%;
+}
+
+.rodape-conteudo {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.rodape-titulo {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.rodape-autores {
+  font-size: 0.75rem;
+  color: #dcdcdc;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .rodape {
+    padding: 1rem 5vw;
+  }
+
+  .rodape-autores {
+    font-size: 0.7rem;
+  }
+}

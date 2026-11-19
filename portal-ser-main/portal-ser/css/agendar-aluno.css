@@ -1,0 +1,207 @@
+:root {
+  --vinho: #9a0000;
+  --vinho-esc: #7d0000;
+  --navy: #0f1148;
+  --rosa: #fde0d2;
+  --rosa-borda: #f0b9a3;
+  --verde: #1a9b3c;
+  --cinza: #a9a9a9;
+  --fundo: #fff;
+  --painel: #a9a9a9;
+}
+* { box-sizing: border-box; margin: 0; }
+body {
+  font-family: 'Poppins', system-ui, sans-serif;
+  background: #fff;
+  color: var(--navy);
+  min-height: 100vh;
+  padding: 0 0 24px;
+}
+.topo {
+  width: 100%;
+  margin: 0 0 32px;
+  background: var(--vinho);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 5%;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.logo { font-weight: 700; font-size: 1.7rem; color: #fff; text-decoration: none; }
+.logo small { display: block; font-size: .5rem; font-weight: 500; text-align: right; }
+main { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+.tela { display: none; }
+.tela.ativa { display: block; }
+h2.chamada { text-align: center; font-weight: 400; font-size: 1.15rem; color: var(--vinho); margin-bottom: 24px; }
+h2.chamada b { color: var(--navy); font-weight: 500; }
+.linha { display: flex; gap: 24px; justify-content: center; align-items: flex-start; flex-wrap: wrap; }
+.moldura { background: var(--painel); padding: 12px; border-radius: 14px; width: 310px; }
+.cal { background: #fff; border-radius: 12px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(0,0,0,.18); }
+.cal-topo { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; font-size: .85rem; font-weight: 500; }
+.cal-topo button { border: 0; background: none; font-size: 1.1rem; cursor: pointer; color: var(--navy); padding: 2px 8px; }
+.cal-topo button:disabled { color: #ccc; cursor: not-allowed; }
+.grade { display: grid; grid-template-columns: repeat(7,1fr); gap: 6px 0; text-align: center; font-size: .72rem; }
+.dow { color: var(--navy); font-weight: 500; margin-bottom: 4px; }
+.dia { width: 28px; height: 28px; margin: auto; border-radius: 50%; border: 1px solid transparent; background: none; font: inherit; color: var(--navy); display: flex; align-items: center; justify-content: center; }
+.dia.fora { color: #bbb; }
+.dia.dom { color: #c00000; }
+.dia.passado { color: #bbb; }
+.dia.indisp { border-color: var(--cinza); color: #777; }
+.dia.disp { border-color: var(--verde); cursor: pointer; }
+.dia.disp:hover { background: #e6f6ea; }
+.dia.hoje { background: var(--navy); color: #fff; border-color: var(--navy); }
+.dia.sel { background: var(--verde); color: #fff; border-color: var(--verde); transform: scale(1.08); }
+.legenda { border: 1px solid #888; border-radius: 10px; padding: 10px 14px; font-size: .65rem; display: grid; gap: 4px; min-width: 150px; margin-bottom: 26px; max-width: 200px; }
+.legenda i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; }
+.aviso { text-align: center; font-size: .85rem; color: #666; margin-top: 18px; min-height: 1.4em; }
+.lateral { flex: 1; min-width: 280px; max-width: 420px; }
+.horarios h3 { font-size: 1.1rem; font-weight: 400; color: var(--vinho); }
+.horarios h3 b { color: #444; }
+.data-sel { margin-top: 14px; color: var(--vinho); font-size: .85rem; }
+.data-sel strong { display: block; font-size: .8rem; color: #300; }
+.slots { display: grid; grid-template-columns: repeat(2, minmax(0,140px)); gap: 16px 36px; margin: 22px 0 30px; }
+.slot { border: 1px solid var(--rosa-borda); background: var(--rosa); color: var(--vinho-esc); font: inherit; font-size: .85rem; font-weight: 500; padding: 10px 0; border-radius: 3px; cursor: pointer; transition: .15s; }
+.slot:hover { background: #f9cbb7; }
+.slot.sel { background: var(--vinho); color: #fff; border-color: var(--vinho); }
+.acoes { display: flex; justify-content: flex-end; gap: 18px; }
+.btn { font: inherit; font-size: .85rem; font-weight: 500; border-radius: 4px; padding: 9px 30px; cursor: pointer; }
+.btn.voltar { background: var(--rosa); border: 1px solid var(--rosa-borda); color: var(--vinho-esc); }
+.btn.final { background: var(--vinho); border: 1px solid var(--vinho); color: #fff; font-weight: 600; }
+.btn.final:disabled { opacity: .4; cursor: not-allowed; }
+.overlay { position: fixed; inset: 0; background: rgba(15,17,72,.82); display: none; align-items: center; justify-content: center; z-index: 10; }
+.overlay.on { display: flex; }
+.caixa { background: #fff; border-radius: 20px; padding: 36px 44px; text-align: center; max-width: 360px; }
+.caixa h4 { color: var(--vinho); font-size: 1.2rem; margin-top: 18px; }
+.caixa p { color: #555; font-size: .85rem; margin-top: 6px; }
+.check { width: 92px; height: 92px; }
+.check circle { fill: none; stroke: var(--verde); stroke-width: 5; stroke-dasharray: 283; stroke-dashoffset: 283; animation: traco .6s .2s ease forwards; }
+.check path { fill: none; stroke: var(--verde); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 60; stroke-dashoffset: 60; animation: traco .4s .75s ease forwards; }
+@keyframes traco { to { stroke-dashoffset: 0; } }
+
+
+/* =========================================
+   AJUSTES VISUAIS - PORTAL SER
+   Calendário, legenda e espaçamentos
+========================================= */
+
+/* Espaçamento entre o menu e o título */
+h2.chamada {
+    margin-top: 28px;
+    margin-bottom: 30px;
+    font-size: 1.25rem;
+}
+
+/* Organização do calendário e painel lateral */
+.linha {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+/* Moldura externa do calendário */
+.moldura {
+    width: 370px;
+    padding: 14px;
+    border-radius: 16px;
+}
+
+/* Área interna do calendário */
+.cal {
+    padding: 18px 20px;
+    border-radius: 13px;
+}
+
+/* Cabeçalho do calendário */
+.cal-topo {
+    font-size: 1rem;
+    margin-bottom: 16px;
+}
+
+/* Grade dos dias */
+.grade {
+    gap: 9px 0;
+    font-size: 0.85rem;
+}
+
+/* Dias da semana */
+.dow {
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+}
+
+/* Botões dos dias */
+.dia {
+    width: 35px;
+    height: 35px;
+    font-size: 0.85rem;
+}
+
+/* Legenda lateral */
+.legenda {
+    min-width: 200px;
+    max-width: 230px;
+    padding: 14px 17px;
+    font-size: 0.78rem;
+    gap: 7px;
+    border-radius: 11px;
+    margin-bottom: 26px;
+}
+
+/* Marcadores da legenda */
+.legenda i {
+    width: 8px;
+    height: 8px;
+    margin-right: 8px;
+}
+
+/* Painel lateral */
+.lateral {
+    min-width: 280px;
+    max-width: 420px;
+}
+
+/* Texto abaixo do calendário */
+.aviso {
+    margin-top: 22px;
+    font-size: 0.9rem;
+}
+
+/* Responsividade para celulares */
+@media (max-width: 700px) {
+
+    h2.chamada {
+        margin-top: 22px;
+        margin-bottom: 24px;
+        font-size: 1.05rem;
+    }
+
+    .linha {
+        gap: 20px;
+    }
+
+    .moldura {
+        width: 100%;
+        max-width: 370px;
+    }
+
+    .lateral {
+        width: 100%;
+        min-width: unset;
+        max-width: 370px;
+    }
+
+    .legenda {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .aviso {
+        margin-top: 20px;
+        padding: 0 12px;
+    }
+}

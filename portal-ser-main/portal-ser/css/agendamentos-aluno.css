@@ -1,0 +1,110 @@
+:root {
+  --vinho: #9a0000;
+  --vinho-esc: #7d0000;
+  --navy: #0f1148;
+  --rosa: #fde0d2;
+  --rosa-borda: #f0b9a3;
+  --verde: #1a9b3c;
+}
+
+* { box-sizing: border-box; margin: 0; }
+
+body {
+  font-family: 'Poppins', system-ui, sans-serif;
+  background: #fff;
+  color: var(--navy);
+  min-height: 100vh;
+  padding: 0 0 24px;
+}
+
+.titulo { 
+  text-align: center; 
+  font-size: 1.5rem; 
+  font-weight: 400; 
+  color: var(--vinho); 
+  margin-bottom: 20px; 
+}
+.titulo b { font-weight: 700; }
+
+main { 
+  max-width: 640px; 
+  margin: 32px auto 0; 
+  padding: 0 20px; 
+}
+
+.barra { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  gap: 12px; 
+  flex-wrap: wrap; 
+  margin-bottom: 22px; 
+}
+
+.abas { display: flex; gap: 8px; }
+
+.aba {
+  font: inherit;
+  font-size: .82rem;
+  border: 1px solid var(--rosa-borda);
+  background: #fff;
+  color: var(--vinho-esc);
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.aba.on { background: var(--vinho); border-color: var(--vinho); color: #fff; }
+
+.btn {
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 600;
+  background: var(--vinho);
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  padding: 9px 22px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.aba:focus-visible, .btn:focus-visible, .cancelar:focus-visible { 
+  outline: 2px solid var(--navy); 
+  outline-offset: 2px; 
+}
+
+ul { list-style: none; padding: 0; display: grid; gap: 12px; }
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--rosa);
+  border: 1px solid var(--rosa-borda);
+  border-radius: 6px;
+  padding: 14px 18px;
+}
+
+.data { min-width: 64px; text-align: center; color: var(--vinho-esc); line-height: 1.1; }
+.data b { display: block; font-size: 1.6rem; }
+.data span { font-size: .72rem; }
+
+.info { flex: 1; }
+.info strong { display: block; font-size: 1rem; }
+.info small { color: #6b3a2a; text-transform: capitalize; }
+
+.tag { font-size: .72rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+.tag.prox { background: #fff; color: var(--vinho); border: 1px solid var(--vinho); }
+.tag.conc { background: var(--verde); color: #fff; }
+
+.cancelar { 
+  font: inherit; 
+  font-size: .75rem; 
+  background: none; 
+  border: 0; 
+  color: var(--vinho); 
+  text-decoration: underline; 
+  cursor: pointer; 
+}
+
+.vazio { text-align: center; color: #666; padding: 40px 0; font-size: .95rem; }

@@ -1,0 +1,221 @@
+:root {
+  --vinho: #9b0000;
+  --vermelho: #e0161c;
+  --rosa: #f8d3d3;
+  --cinza: #d9d9d9;
+  --borda: #f3dcd2;
+  --texto: #3a3a3a;
+  --navy: #0f1148;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: #fff;
+  font-family: "Archivo", Arial, sans-serif;
+  color: var(--texto);
+}
+
+svg.icone,
+svg.icone-agenda,
+svg.icone-voltar {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icone {
+  width: 1.05em;
+  height: 1.05em;
+  flex: 0 0 auto;
+}
+
+.icone-voltar {
+  width: 1.15em;
+  height: 1.15em;
+}
+
+.icone-agenda {
+  width: 44px;
+  height: 44px;
+  color: var(--vinho);
+  opacity: 0.9;
+}
+
+.pagina {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 4vw 3rem;
+}
+
+.btn-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  color: var(--navy);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: background 0.2s ease;
+}
+
+.btn-voltar:hover {
+  background: #e5e5e5;
+}
+
+.cabecalho-pagina {
+  margin-bottom: 1.8rem;
+}
+
+.cabecalho-pagina h1 {
+  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  color: var(--vinho);
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.cabecalho-pagina p {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.agendamento {
+  display: grid;
+  grid-template-columns: 48px 1.5fr 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.2rem;
+  padding: 1.15rem 1.8rem;
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.14);
+}
+
+.ag-info h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--vinho);
+  margin: 0.2rem 0 0.45rem;
+}
+
+.ag-info p,
+.ag-data p {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.35rem;
+}
+
+.ag-data {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 1.8rem;
+  border-left: 1px solid var(--vinho);
+}
+
+.selo {
+  display: inline-block;
+  padding: 0.14rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 600;
+}
+
+.selo-rosa {
+  background: var(--rosa);
+  color: var(--vinho);
+}
+
+.selo-cinza {
+  background: var(--cinza);
+  color: #444;
+  align-self: center;
+  margin-bottom: 0.6rem;
+}
+
+.ag-acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-width: 135px;
+  padding: 0.55rem 0.9rem;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid var(--vermelho);
+}
+
+.btn-cheio {
+  background: var(--vermelho);
+  color: #fff;
+}
+
+.btn-cheio:hover {
+  background: var(--vinho);
+  border-color: var(--vinho);
+}
+
+.mensagem-lista {
+  text-align: center;
+  color: #666;
+  padding: 24px;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 800px) {
+  .agendamento {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1.2rem;
+  }
+
+  .icone-agenda {
+    width: 36px;
+    height: 36px;
+  }
+
+  .ag-data {
+    padding: 1rem 0 0;
+    border-left: 0;
+    border-top: 1px solid var(--vinho);
+  }
+
+  .selo-cinza {
+    align-self: flex-start;
+  }
+
+  .ag-acoes .btn {
+    width: 100%;
+  }
+}

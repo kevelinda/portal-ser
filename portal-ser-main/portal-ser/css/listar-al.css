@@ -1,0 +1,146 @@
+:root {
+  --vinho: #9b0000;
+  --vermelho: #e0161c;
+  --rosa: #f8d3d3;
+  --borda: #f3dcd2;
+  --texto: #3a3a3a;
+  --navy: #0f1148;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: #fff;
+  font-family: "Archivo", Arial, sans-serif;
+  color: var(--texto);
+}
+
+.pagina {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 4vw 3rem;
+}
+
+.btn-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  color: var(--navy);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: background 0.2s ease;
+}
+
+.btn-voltar:hover {
+  background: #e5e5e5;
+}
+
+.icone-voltar {
+  width: 1.2em;
+  height: 1.2em;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.cabecalho-pagina {
+  margin-bottom: 1.8rem;
+}
+
+.cabecalho-pagina h1 {
+  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  color: var(--vinho);
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.filtro-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.select-filtro {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  background: #fff;
+  color: var(--texto);
+  cursor: pointer;
+}
+
+.tabela-container {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+}
+
+.tabela-alunos {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.tabela-alunos th {
+  background: var(--vinho);
+  color: #fff;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.tabela-alunos td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  color: var(--texto);
+}
+
+.tabela-alunos tr:last-child td {
+  border-bottom: none;
+}
+
+.tabela-alunos tr:hover td {
+  background: #faf6f6;
+}
+
+.carregando,
+.vazio {
+  text-align: center;
+  color: #666;
+  padding: 2rem !important;
+  font-style: italic;
+}
+
+@media (max-width: 700px) {
+  .filtro-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .select-filtro {
+    width: 100%;
+  }
+}

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal SER - Gerenciar e Reagendar Consultas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/remarcaresponsavel.css">
+  <link rel="stylesheet" href="css/footer.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-calendario" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-relogio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-usuario" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
+    <symbol id="i-turma" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4"/></symbol>
+    <symbol id="i-agenda" viewBox="0 0 64 64"><rect x="4" y="8" width="46" height="44" rx="6"/><path d="M4 22h46M16 4v8M38 4v8"/><circle cx="46" cy="46" r="13" fill="#fff"/><path d="M46 38v8l5 3"/></symbol>
+    <symbol id="i-voltar" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+  </svg>
+
+  <header class="navbar">
+    <a class="navbar-logo" href="homeresponsa.html" aria-label="Portal SER - Início">
+      <span class="navbar-portal">Portal</span>
+      <span class="navbar-ser">SER</span>
+    </a>
+    <nav aria-label="Menu principal">
+      <ul class="navbar-menu">
+        <li><a class="navbar-link" href="homeresponsa.html">Início</a></li>
+        <li><a class="navbar-link ativo" href="remarcaresponsavel.html?modo=gerenciar" aria-current="page">Gerenciar Horários</a></li>
+        <li><a class="navbar-link" href="listar-al.html">Estudantes</a></li>
+        <li><a class="navbar-sair" id="btn-sair" href="index.html">Sair</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="pagina">
+    <a href="homeresponsa.html" class="btn-voltar-topo revela" style="--d:0">
+      <svg class="icone"><use href="#i-voltar"/></svg> Voltar ao Início
+    </a>
+
+    <h1 class="revela" style="--d:1">Reagendamento de consulta</h1>
+
+    <section class="resumo revela" style="--d:2" aria-label="Agendamento atual">
+      <svg class="resumo-icone"><use href="#i-agenda"/></svg>
+
+      <div class="resumo-info">
+        <span class="selo selo-rosa">Próximo agendamento</span>
+        <h2>Horário agendado</h2>
+        <p><svg class="icone"><use href="#i-usuario"/></svg> Estudante: <span id="estudante" class="carregando"> </span></p>
+        <p><svg class="icone"><use href="#i-turma"/></svg> Turma/Série: <span id="turma" class="carregando"> </span></p>
+      </div>
+
+      <div class="resumo-data">
+        <span class="selo selo-rosa">Agendado</span>
+        <p><svg class="icone"><use href="#i-calendario"/></svg> <span id="data-atual">--/--/----</span></p>
+        <p><svg class="icone"><use href="#i-relogio"/></svg> <span id="hora-atual">--h--</span></p>
+      </div>
+
+      <div class="previa" id="previa" hidden aria-live="polite">
+        <span class="previa-rotulo">Novo horário</span>
+        <strong id="previa-texto"></strong>
+      </div>
+    </section>
+
+    <div class="selecao">
+      <section class="coluna revela" style="--d:3" aria-labelledby="t-data">
+        <h2 id="t-data">Selecione a data</h2>
+
+        <div class="moldura">
+          <div class="cal">
+            <div class="cal-topo">
+              <span id="mes-titulo" aria-live="polite">Carregando…</span>
+              <span>
+                <button type="button" id="mes-anterior" aria-label="Mês anterior">‹</button>
+                <button type="button" id="mes-proximo" aria-label="Próximo mês">›</button>
+              </span>
+            </div>
+            <div class="grade" id="grade" aria-busy="true"></div>
+          </div>
+        </div>
+
+        <div class="legenda-padrao">
+          <span><i style="background:#101d42"></i> Data Atual</span>
+          <span><i style="background:#1a9e3f"></i> Data Disponível</span>
+          <span><i style="background:#999999"></i> Data Indisponível</span>
+        </div>
+      </section>
+
+      <section class="coluna revela" style="--d:4" aria-labelledby="t-hora">
+        <h2 id="t-hora">Selecione o horário</h2>
+
+        <p class="aviso" id="aviso-horarios">Escolha uma data no calendário para ver os horários livres.</p>
+        <div class="horarios" id="horarios" role="group" aria-label="Horários disponíveis"></div>
+
+        <div class="gerenciar-dia" id="painel-gerenciar" hidden>
+          <h3>Definir horários para (<span id="data-gerenciar"></span>)</h3>
+
+          <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+            <input type="time" id="input-novo-horario" style="padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit;">
+            <button type="button" id="btn-adicionar-horario" class="btn" style="padding: 6px 12px; font-size: 0.8rem; background: var(--vinho); color: #fff;">Adicionar horário</button>
+          </div>
+
+          <label class="toggle-dia" style="margin-bottom: 10px;">
+            <input type="checkbox" id="check-dia-indisponivel">
+            Bloquear o dia inteiro
+          </label>
+
+          <p style="font-size: 0.75rem; font-weight: 600; color: #555; margin-bottom: 6px;">Horários configurados para este dia (clique no × para remover):</p>
+          <div class="chips-horarios" id="chips-horarios"></div>
+        </div>
+
+        <p class="erro" id="erro" role="alert" hidden></p>
+
+        <div class="acoes">
+          <button type="button" class="btn btn-vinho" id="finalizar" disabled>Finalizar</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape-conteudo">
+      <span class="rodape-titulo">Portal SER</span>
+      <p class="rodape-autores">Desenvolvido por: Nicolly Freitas, Kevellin Vitoria, Maria Heloisa, Davi Eduardo, Gabriel Carvalho</p>
+    </div>
+  </footer>
+
+  <div class="sucesso" id="sucesso" hidden role="dialog" aria-modal="true" aria-labelledby="sucesso-titulo">
+    <div class="sucesso-card">
+      <svg class="check" viewBox="0 0 52 52" aria-hidden="true">
+        <circle class="check-circulo" cx="26" cy="26" r="24"/>
+        <path class="check-marca" d="M14 27l9 9 17-19"/>
+      </svg>
+      <h2 id="sucesso-titulo">Consulta remarcada!</h2>
+      <p id="sucesso-detalhe"></p>
+      <a class="btn btn-vinho" id="sucesso-link" href="homeresponsa.html">Voltar aos agendamentos</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { db } from "./config/firebase.js";
+    import { ref, get, update, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+
+    const HORARIOS_PADRAO = ["07:30", "08:10", "08:50", "09:00", "09:50", "10:30"];
+    const params = new URLSearchParams(window.location.search);
+    const agendamentoId = params.get("id");
+
+    const $ = (id) => document.getElementById(id);
+
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    let mesAtual = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+    let dataSel = null;
+    let horaSel = null;
+    let regrasDisponibilidade = {};
+
+    const iso = (d) =>
+      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+    const diaDisponivel = (d) => {
+      if (d.getDay() === 0 || d.getDay() === 6) return false;
+      const regra = regrasDisponibilidade[iso(d)];
+      return !(regra && regra.diaIndisponivel);
+    };
+
+    function mostrarErro(msg) {
+      const el = $("erro");
+      el.textContent = msg;
+      el.hidden = false;
+    }
+
+    $("btn-sair")?.addEventListener("click", () => {
+      localStorage.removeItem("responsavelLogado");
+    });
+
+    onValue(ref(db, "disponibilidade"), (snap) => {
+      regrasDisponibilidade = snap.exists() ? snap.val() : {};
+      desenharCalendario();
+      if (dataSel) {
+        atualizarPainelDia(dataSel);
+      }
+    });
+
+    async function carregarAgendamento() {
+      if (params.get("modo") === "gerenciar" || !agendamentoId) {
+        document.querySelector(".resumo").hidden = true;
+        document.querySelector("h1").textContent = "Gerenciar Datas e Horários";
+        $("finalizar").hidden = true;
+        return;
+      }
+
+      try {
+        const snap = await get(ref(db, `agendamentos/${agendamentoId}`));
+        if (!snap.exists()) {
+          mostrarErro("Agendamento não encontrado no banco de dados.");
+          return;
+        }
+
+        const ag = snap.val();
+        $("estudante").textContent = ag.nomeEstudante || "Não informado";
+        $("estudante").classList.remove("carregando");
+
+        $("turma").textContent = ag.turma || "Não informada";
+        $("turma").classList.remove("carregando");
+
+        $("data-atual").textContent = ag.data || "--/--/----";
+        $("hora-atual").textContent = (ag.horario || "--:--").replace(":", "h");
+      } catch (err) {
+        console.error("Erro ao carregar agendamento:", err);
+        mostrarErro("Erro ao buscar dados do agendamento.");
+      }
+    }
+
+    function desenharCalendario() {
+      const grade = $("grade");
+      grade.innerHTML = "";
+      grade.setAttribute("aria-busy", "false");
+
+      ["D", "S", "T", "Q", "Q", "S", "S"].forEach((l) =>
+        grade.insertAdjacentHTML("beforeend", `<div class="dow">${l}</div>`)
+      );
+
+      const titulo = mesAtual
+        .toLocaleDateString("pt-BR", { month: "long", year: "numeric" })
+        .replace(/^./, (c) => c.toUpperCase());
+
+      $("mes-titulo").textContent = titulo;
+      $("mes-anterior").disabled = mesAtual <= new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+
+      const primeiroDia = mesAtual.getDay();
+      const totalDias = new Date(mesAtual.getFullYear(), mesAtual.getMonth() + 1, 0).getDate();
+
+      for (let i = 0; i < primeiroDia; i++) {
+        grade.appendChild(document.createElement("div"));
+      }
+
+      for (let dia = 1; dia <= totalDias; dia++) {
+        const d = new Date(mesAtual.getFullYear(), mesAtual.getMonth(), dia);
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = dia;
+        btn.className = "dia";
+
+        if (d.getDay() === 0) btn.classList.add("dom");
+
+        if (d < hoje) {
+          btn.classList.add("passado");
+          btn.disabled = true;
+        } else if (d.getDay() === 0 || d.getDay() === 6) {
+          btn.classList.add("indisp");
+          btn.disabled = true;
+        } else {
+          btn.classList.add(diaDisponivel(d) ? "disp" : "indisp");
+          btn.addEventListener("click", () => selecionarData(d));
+        }
+
+        if (+d === +hoje) btn.classList.add("hoje");
+        if (dataSel && iso(d) === iso(dataSel)) btn.classList.add("sel");
+
+        grade.appendChild(btn);
+      }
+    }
+
+    $("mes-anterior").addEventListener("click", () => {
+      mesAtual = new Date(mesAtual.getFullYear(), mesAtual.getMonth() - 1, 1);
+      desenharCalendario();
+    });
+
+    $("mes-proximo").addEventListener("click", () => {
+      mesAtual = new Date(mesAtual.getFullYear(), mesAtual.getMonth() + 1, 1);
+      desenharCalendario();
+    });
+
+    async function selecionarData(d) {
+      dataSel = d;
+      horaSel = null;
+      if (!params.get("modo")) {
+        $("finalizar").disabled = true;
+      }
+      $("previa").hidden = true;
+      $("erro").hidden = true;
+      desenharCalendario();
+      await atualizarPainelDia(d);
+    }
+
+    async function atualizarPainelDia(d) {
+      const dataISO = iso(d);
+      const regraDia = regrasDisponibilidade[dataISO] || {};
+      let horariosDoDia = regraDia.horariosCustomizados || [...HORARIOS_PADRAO];
+
+      $("painel-gerenciar").hidden = false;
+      $("data-gerenciar").textContent = d.toLocaleDateString("pt-BR");
+      $("check-dia-indisponivel").checked = Boolean(regraDia.diaIndisponivel);
+
+      const chipsBox = $("chips-horarios");
+      chipsBox.innerHTML = "";
+
+      if (horariosDoDia.length === 0) {
+        chipsBox.innerHTML = "<span style='font-size:0.75rem; color:#888;'>Nenhum horário cadastrado. Adicione acima.</span>";
+      }
+
+      horariosDoDia.sort().forEach((h) => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip-hora";
+        chip.textContent = `${h.replace(":", "h")} ×`;
+        chip.addEventListener("click", async () => {
+          const novaLista = horariosDoDia.filter((item) => item !== h);
+          await update(ref(db, `disponibilidade/${dataISO}`), {
+            horariosCustomizados: novaLista
+          });
+        });
+        chipsBox.appendChild(chip);
+      });
+
+      $("btn-adicionar-horario").onclick = async () => {
+        const novoH = $("input-novo-horario").value;
+        if (!novoH) return;
+        if (horariosDoDia.includes(novoH)) {
+          alert("Este horário já está cadastrado para este dia.");
+          return;
+        }
+        horariosDoDia.push(novoH);
+        $("input-novo-horario").value = "";
+        await update(ref(db, `disponibilidade/${dataISO}`), {
+          horariosCustomizados: horariosDoDia,
+          diaIndisponivel: false
+        });
+      };
+
+      const boxHorarios = $("horarios");
+      boxHorarios.innerHTML = "";
+
+      if (regraDia.diaIndisponivel) {
+        $("aviso-horarios").textContent = "Este dia está bloqueado para atendimentos.";
+        return;
+      }
+
+      $("aviso-horarios").textContent = "Carregando horários...";
+
+      const ocupados = [];
+      try {
+        const snap = await get(ref(db, "agendamentos"));
+        if (snap.exists()) {
+          const dataBR = d.toLocaleDateString("pt-BR");
+          snap.forEach((child) => {
+            if (child.key === agendamentoId) return;
+            const ag = child.val();
+            if (ag.dataISO === dataISO || ag.data === dataBR) {
+              ocupados.push(ag.horario);
+            }
+          });
+        }
+      } catch (err) {
+        console.error("Erro ao consultar horários:", err);
+      }
+
+      const livres = horariosDoDia.filter((h) => !ocupados.includes(h)).sort();
+
+      if (!livres.length) {
+        $("aviso-horarios").textContent = "Nenhum horário livre nesta data.";
+        return;
+      }
+
+      $("aviso-horarios").textContent = `Horários disponíveis em ${d.toLocaleDateString("pt-BR")}:`;
+
+      livres.forEach((h) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "slot";
+        btn.textContent = h.replace(":", "h");
+
+        btn.addEventListener("click", () => {
+          horaSel = h;
+          boxHorarios.querySelectorAll(".slot").forEach((s) => s.classList.toggle("sel", s === btn));
+
+          $("previa-texto").textContent = `${d.toLocaleDateString("pt-BR")} às ${h.replace(":", "h")}`;
+          $("previa").hidden = false;
+          if (!params.get("modo")) {
+            $("finalizar").disabled = false;
+          }
+        });
+
+        boxHorarios.appendChild(btn);
+      });
+    }
+
+    $("check-dia-indisponivel").addEventListener("change", async (e) => {
+      if (!dataSel) return;
+      const dataISO = iso(dataSel);
+      await update(ref(db, `disponibilidade/${dataISO}`), {
+        diaIndisponivel: e.target.checked
+      });
+    });
+
+    $("finalizar").addEventListener("click", async () => {
+      if (!agendamentoId || !dataSel || !horaSel) return;
+
+      $("finalizar").disabled = true;
+      $("erro").hidden = true;
+
+      const novaDataBR = dataSel.toLocaleDateString("pt-BR");
+      const novaDataISO = iso(dataSel);
+
+      try {
+        await update(ref(db, `agendamentos/${agendamentoId}`), {
+          data: novaDataBR,
+          dataISO: novaDataISO,
+          horario: horaSel,
+          status: "Remarcado",
+          atualizadoEm: new Date().toISOString()
+        });
+
+        $("sucesso-detalhe").textContent =
+          `Novo horário confirmado para ${novaDataBR} às ${horaSel.replace(":", "h")}.`;
+        $("sucesso").hidden = false;
+      } catch (err) {
+        console.error("Erro ao remarcar:", err);
+        mostrarErro("Não foi possível salvar a remarcação: " + err.message);
+        $("finalizar").disabled = false;
+      }
+    });
+
+    carregarAgendamento();
+    desenharCalendario();
+  </script>
+</body>
+</html>

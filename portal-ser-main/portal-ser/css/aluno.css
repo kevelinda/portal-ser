@@ -1,0 +1,137 @@
+:root {
+  --vinho: #9b0000;
+  --vinho-escuro: #7a0000;
+  --cinza-cartao: #d4d4d4;
+  --azul-logo: #0b1244;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body.pagina-login {
+  min-height: 100vh;
+  background: #fff;
+  font-family: "Inter", Arial, sans-serif;
+  color: var(--vinho-escuro);
+}
+
+.topo {
+  display: flex;
+  align-items: center;
+  height: 10vh;
+  min-height: 56px;
+  padding: 0 4vw;
+  background: var(--vinho);
+}
+
+.topo-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+  color: #fff;
+  text-decoration: none;
+}
+
+.topo-portal {
+  font-size: 0.7rem;
+  padding-right: 0.2em;
+}
+
+.topo-ser {
+  font-family: "Archivo Black", Impact, sans-serif;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8vh 6vw 6vh;
+}
+
+.login h1 {
+  font-family: "Archivo", Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  color: var(--vinho);
+  margin-bottom: 5vh;
+}
+
+.cartao {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 380px;
+}
+
+.cartao label {
+  display: block;
+  margin: 12px 0 4px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.cartao select,
+.cartao input {
+  width: 100%;
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.cartao button {
+  margin: 20px auto 0;
+}
+
+.erro {
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--vinho);
+}
+
+.sucesso {
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1d6b2f;
+}
+
+.entrar {
+  align-self: center;
+  min-width: 150px;
+  height: 42px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--azul-logo);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.entrar:hover {
+  background: #1b2670;
+}
+
+.troca {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.troca a {
+  color: var(--vinho);
+  font-weight: 700;
+}

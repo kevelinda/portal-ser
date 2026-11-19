@@ -1,0 +1,129 @@
+:root {
+  --vinho: #9b0000;
+}
+
+.navbar,
+.navbar *,
+.navbar *::before,
+.navbar *::after {
+  box-sizing: border-box;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.7rem 4vw;
+  background: var(--vinho) !important;
+  color: #fff !important;
+  font-family: "Archivo", Arial, sans-serif;
+  box-shadow: none;
+  border: 0;
+}
+
+.navbar nav,
+.navbar ul,
+.navbar li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.navbar-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+  color: #fff !important;
+  text-decoration: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.navbar-portal {
+  font-size: 0.65rem;
+  font-weight: 400;
+  margin-bottom: -0.1em;
+}
+
+.navbar-ser {
+  font-family: "Archivo Black", Impact, sans-serif;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-link {
+  display: inline-block;
+  color: #fff !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 0 2px 0 !important;
+}
+
+.navbar-link:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 6px;
+}
+
+.navbar-link.ativo {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+.navbar-sair {
+  display: inline-block;
+  padding: 0.35rem 1.2rem !important;
+  border: 2px solid #fff !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  color: #fff !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.navbar-sair:hover {
+  background: #fff !important;
+  color: var(--vinho) !important;
+}
+
+.navbar a:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .navbar-menu {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

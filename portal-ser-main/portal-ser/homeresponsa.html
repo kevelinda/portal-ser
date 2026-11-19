@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal SER - Início Responsável</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/homeresponsavel.css">
+  <link rel="stylesheet" href="css/footer.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-calendario" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-relogio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-usuario" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
+    <symbol id="i-turma" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4"/></symbol>
+    <symbol id="i-agenda" viewBox="0 0 64 64"><rect x="4" y="8" width="46" height="44" rx="6"/><path d="M4 22h46M16 4v8M38 4v8"/><circle cx="46" cy="46" r="13" fill="#fff"/><path d="M46 38v8l5 3"/></symbol>
+    <symbol id="i-lixo" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+  </svg>
+
+  <header class="navbar">
+    <a class="navbar-logo" href="homeresponsa.html" aria-label="Portal SER - Início">
+      <span class="navbar-portal">Portal</span>
+      <span class="navbar-ser">SER</span>
+    </a>
+    <nav aria-label="Menu principal">
+      <ul class="navbar-menu">
+        <li><a class="navbar-link ativo" href="homeresponsa.html" aria-current="page">Início</a></li>
+        <li><a class="navbar-link" href="remarcaresponsavel.html?modo=gerenciar">Gerenciar Horários</a></li>
+        <li><a class="navbar-link" href="listar-al.html">Estudantes</a></li>
+        <li><a class="navbar-sair" id="btn-sair" href="index.html">Sair</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="pagina">
+    <section class="hero">
+      <div class="hero-texto">
+        <span class="hero-etiqueta">BEM-VINDO(A) RESPONSÁVEL AO SER</span>
+        <h1>Olá, <span id="nome-responsavel">responsável</span>!</h1>
+        <p class="hero-descricao">
+          Aqui você pode acompanhar seus agendamentos,
+          organizar os atendimentos e visualizar os
+          estudantes cadastrados no sistema.
+        </p>
+      </div>
+      <div class="hero-imagem">
+        <img
+          src="./img/prof.png"
+          alt="Ilustração de uma profissional acolhedora segurando uma prancheta"
+          onerror="this.style.display='none'; document.getElementById('hero-resp-fallback').style.display='flex';"
+        >
+        <div id="hero-resp-fallback" class="hero-fallback" style="display:none;" aria-hidden="true">
+          <span>Acompanhamento & Gestão</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="atalho-card">
+      <svg class="atalho-icone"><use href="#i-agenda"/></svg>
+      <div class="atalho-info">
+        <h3>Gerenciar Datas e Horários</h3>
+        <p>Defina horários personalizados ou bloqueie dias indisponíveis.</p>
+      </div>
+      <div class="atalho-acoes">
+        <a class="btn btn-cheio" href="remarcaresponsavel.html?modo=gerenciar">
+          <svg class="icone"><use href="#i-calendario"/></svg> Gerenciar
+        </a>
+      </div>
+    </section>
+
+    <section class="atalho-card">
+      <svg class="atalho-icone"><use href="#i-usuario"/></svg>
+      <div class="atalho-info">
+        <h3>Estudantes Cadastrados</h3>
+        <p>Visualize a lista completa de alunos.</p>
+      </div>
+      <div class="atalho-acoes">
+        <a class="btn btn-cheio" href="listar-al.html">
+          <svg class="icone"><use href="#i-usuario"/></svg> Ver Alunos
+        </a>
+      </div>
+    </section>
+
+    <section class="atalho-card">
+      <svg class="atalho-icone"><use href="#i-relogio"/></svg>
+      <div class="atalho-info">
+        <h3>Histórico de Agendamentos</h3>
+        <p>Verifique os atendimentos concluídos ou com data e horário já passados.</p>
+      </div>
+      <div class="atalho-acoes">
+        <a class="btn btn-contorno" href="historico.html">
+          <svg class="icone"><use href="#i-relogio"/></svg> Ver Histórico
+        </a>
+      </div>
+    </section>
+
+    <div class="titulo-agendamentos">
+      <h2>Meus Agendamentos</h2>
+    </div>
+
+    <div id="lista-agendamentos">
+      <p class="mensagem-lista">Carregando agendamentos...</p>
+    </div>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape-conteudo">
+      <span class="rodape-titulo">Portal SER</span>
+      <p class="rodape-autores">Desenvolvido por: Nicolly Freitas, Kevellin Vitoria, Maria Heloisa, Davi Eduardo, Gabriel Carvalho</p>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { db } from "./config/firebase.js";
+    import { ref, remove, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+
+    const periodosNomes = {
+      manha: "Manhã",
+      tarde: "Tarde",
+      noite: "Noite"
+    };
+
+    document.getElementById("btn-sair").addEventListener("click", () => {
+      localStorage.removeItem("responsavelLogado");
+    });
+
+    const respLogado = JSON.parse(localStorage.getItem("responsavelLogado"));
+    if (respLogado && respLogado.nome) {
+      document.getElementById("nome-responsavel").textContent = respLogado.nome;
+    }
+
+    function parseDataHora(ag) {
+      let ano, mes, dia;
+      if (ag.dataISO) {
+        [ano, mes, dia] = ag.dataISO.split("-");
+      } else if (ag.data && ag.data.includes("/")) {
+        [dia, mes, ano] = ag.data.split("/");
+      } else {
+        return null;
+      }
+      const [hora, minuto] = (ag.horario || "00:00").split(":");
+      return new Date(Number(ano), Number(mes) - 1, Number(dia), Number(hora), Number(minuto));
+    }
+
+    function aindaVaiAcontecer(ag) {
+      if (ag.status === "Concluído") return false;
+      const dt = parseDataHora(ag);
+      return dt ? dt >= new Date() : true;
+    }
+
+    onValue(ref(db, "agendamentos"), (snapshot) => {
+      const listaDiv = document.getElementById("lista-agendamentos");
+      if (!snapshot.exists()) {
+        listaDiv.innerHTML = `<p class="mensagem-lista">Nenhum agendamento futuro encontrado.</p>`;
+        return;
+      }
+
+      const futuros = [];
+      snapshot.forEach((child) => {
+        const ag = child.val();
+        if (aindaVaiAcontecer(ag)) {
+          futuros.push({ id: child.key, ag });
+        }
+      });
+
+      if (!futuros.length) {
+        listaDiv.innerHTML = `<p class="mensagem-lista">Nenhum agendamento futuro encontrado. Os atendimentos já realizados estão no Histórico de Agendamentos.</p>`;
+        return;
+      }
+
+      listaDiv.innerHTML = "";
+      futuros.forEach(({ id, ag }) => {
+        const periodoFormatado = ag.periodoTexto || periodosNomes[ag.periodo] || ag.periodo || "";
+        const detalheTurma = ag.turma || "Não informada";
+        const textoTurmaComPeriodo =
+          periodoFormatado && !detalheTurma.toLowerCase().includes(periodoFormatado.toLowerCase())
+            ? `${detalheTurma} • Período: ${periodoFormatado}`
+            : detalheTurma;
+
+        const card = document.createElement("div");
+        card.className = "agendamento";
+        card.innerHTML = `
+          <svg class="icone-agenda"><use href="#i-agenda"/></svg>
+          <div class="ag-info">
+            <span class="selo selo-rosa">Próximo agendamento</span>
+            <h3>${ag.nomeEstudante || "Estudante"}</h3>
+            <p><svg class="icone"><use href="#i-usuario"/></svg> Aluno(a): ${ag.nomeEstudante || ""}</p>
+            <p><svg class="icone"><use href="#i-turma"/></svg> Turma/Série: ${textoTurmaComPeriodo}</p>
+          </div>
+          <div class="ag-data">
+            <span class="selo selo-cinza">${ag.status || "Agendado"}</span>
+            <p><svg class="icone"><use href="#i-calendario"/></svg> ${ag.data || "--/--/----"}</p>
+            <p><svg class="icone"><use href="#i-relogio"/></svg> ${(ag.horario || "--:--").replace(":", "h")}</p>
+          </div>
+          <div class="ag-acoes">
+            <a class="btn btn-contorno" href="remarcaresponsavel.html?id=${id}">
+              <svg class="icone"><use href="#i-calendario"/></svg> Remarcar
+            </a>
+            <button type="button" class="btn btn-cheio btn-excluir" data-id="${id}">
+              <svg class="icone"><use href="#i-lixo"/></svg> Excluir
+            </button>
+          </div>
+        `;
+        listaDiv.appendChild(card);
+      });
+
+      document.querySelectorAll(".btn-excluir").forEach((btn) => {
+        btn.onclick = async () => {
+          const id = btn.dataset.id;
+          if (confirm("Deseja realmente excluir este agendamento?")) {
+            try {
+              await remove(ref(db, `agendamentos/${id}`));
+            } catch (err) {
+              console.error("Erro ao excluir:", err);
+              alert("Não foi possível excluir o agendamento.");
+            }
+          }
+        };
+      });
+    });
+  </script>
+</body>
+</html>
